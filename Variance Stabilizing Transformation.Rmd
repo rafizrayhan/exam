@@ -1,0 +1,49 @@
+---
+title: "Mid 2"
+author: "Rafiz"
+date: "12/11/2020"
+output: word_document
+---
+
+```{r}
+data1<- read.csv("Mid2.csv")
+View(data1)
+str(data1)
+```
+
+```{r}
+install.packages("outliers")
+library(outliers)
+```
+```{r}
+cochran.test(observation~method,data=data1)
+```
+#As p value is less than aplha, we reject the null hypothesis
+
+```{r}
+s1<- tapply(data1$observation, data1$method, sd)
+s1
+m1<- tapply(data1$observation, data1$method, mean)
+m1
+logs1<- log(s1)
+logs1
+logm1<- log(m1)
+logm1
+plot(logs1,logm1,type="l")
+lm(logs1~logm1)
+```
+#Coefficient is 0.85. Log transformation is necessary 
+
+```{r}
+setwd("/Users/USER/Desktop/504/")
+```
+```{r}
+data2<- read.csv("Mid2.csv")
+View(data2)
+```
+
+```{r}
+cochran.test(obs1~method,data=data2)
+```
+
+#p value is greater than alpha
